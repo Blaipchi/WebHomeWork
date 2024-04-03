@@ -67,7 +67,7 @@
         <div class="users">
             <h5>用户列表</h5>
             <hr style= "border:1px dashed skyblue;">
-            <form action="DeleteUserServlet" method="post">
+            <form action="" method="post">
             <table style="overflow-y: scroll;">
                 <thead>	
                     <tr>
