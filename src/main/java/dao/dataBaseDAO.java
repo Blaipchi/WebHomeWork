@@ -51,7 +51,7 @@ public class dataBaseDAO {
             conn = null;
             System.out.println("数据库连接已关闭！");
         } else {
-            System.out.println("没有连接数据库");
+            System.out.println("没有连接数据库.");
         }
     }
 
