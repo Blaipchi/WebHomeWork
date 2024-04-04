@@ -14,30 +14,36 @@
                 String ud = (String)session.getAttribute("uid");
                 String sql = "select uid,username,password,email,age,flag from users where uid = ";
                 sql += ud;
-                ResultSet res = dataBaseDAO.queryBySql(sql);
-                String uid = "";
-                String username = "";
-                String password = "";
-                String email = "";
-                int age = 0;
-                int flag = 0;
+                ResultSet res = null;
+                try {
+                    res = dataBaseDAO.queryBySql(sql);
 
-                while(res.next()){
-                    uid = res.getString("uid");
-                    username = res.getString("username");
-                    password = res.getString("password");
-                    email = res.getString("email");
-                    age = res.getInt("age");
-                    flag = res.getInt("flag");
+                    String uid = "";
+                    String username = "";
+                    String password = "";
+                    String email = "";
+                    int age = 0;
+                    int flag = 0;
+
+                    while(res.next()){
+                        uid = res.getString("uid");
+                        username = res.getString("username");
+                        password = res.getString("password");
+                        email = res.getString("email");
+                        age = res.getInt("age");
+                        flag = res.getInt("flag");
+                    }
+
+                    session.setAttribute("userInfo_uid",uid);
+                    session.setAttribute("userInfo_username",username);
+                    session.setAttribute("userInfo_password",password);
+                    session.setAttribute("userInfo_email",email);
+                    session.setAttribute("userInfo_age",age);
+                    session.setAttribute("userInfo_flag",flag);
                 }
-
-                session.setAttribute("userInfo_uid",uid);
-                session.setAttribute("userInfo_username",username);
-                session.setAttribute("userInfo_password",password);
-                session.setAttribute("userInfo_email",email);
-                session.setAttribute("userInfo_age",age);
-                session.setAttribute("userInfo_flag",flag);
-
+                catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 res.close();
             %>
         }
@@ -97,26 +103,26 @@
         <form action="UpdateUserInfoServlet" method="post">
             <table style="overflow-y: scroll;">
                 <tr>
-                    <th>uid:<input id="uid" type="text" value="<%=session.getAttribute("userInfo_uid")%>" disabled></th>
+                    <th>uid:<input type="text" value="<%=session.getAttribute("userInfo_uid")%>" disabled></th>
                 </tr>
                 <tr>
-                    <th>username:<input type="text" value="<%=session.getAttribute("userInfo_username")%>"></th>
+                    <th>username:<input name="username" type="text" value="<%=session.getAttribute("userInfo_username")%>"></th>
                 </tr>
                 <tr>
-                    <th>password:<input type="text" value="<%=session.getAttribute("userInfo_password")%>"></th>
+                    <th>password:<input name="password" type="text" value="<%=session.getAttribute("userInfo_password")%>"></th>
                 </tr>
                 <tr>
-                    <th>email:<input type="text" value="<%=session.getAttribute("userInfo_email")%>"></th>
+                    <th>email:<input name="email" type="text" value="<%=session.getAttribute("userInfo_email")%>"></th>
                 </tr>
                 <tr>
-                    <th>age:<input type="text" value="<%=session.getAttribute("userInfo_age")%>"></th>
+                    <th>age:<input name="age" type="text" value="<%=session.getAttribute("userInfo_age")%>"></th>
                 </tr>
                 <tr>
                     <th>flag:<input type="text" value="<%=session.getAttribute("userInfo_flag")%>" disabled></th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center;">
-                        <input type="button"value="提交" style="margin-left: 30%;">
+                        <input type="submit"value="提交" style="margin-left: 30%;">
                         <input type="button"value="取消" onclick="">
                         <input type="button" value="返回" onclick="window.location.href='user.jsp';">
                     </td>

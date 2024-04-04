@@ -9,6 +9,9 @@ import java.io.IOException;
 public class AddAdminServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 
+        String uid = request.getParameter("uid");
+        String flag = request.getParameter("flag");
+
 
     }
 }

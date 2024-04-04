@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteUserServlet extends HttpServlet  {
 	
 	public void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
-
+		String uid = request.getParameter("uid");
 
 	}
 }

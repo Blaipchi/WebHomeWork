@@ -25,6 +25,16 @@
                 res.close();
             %>
         }
+
+        function updateFlag(key,value){
+            document.MyForm.action="AddAdminServlet?uid="+key+"&flag="+value;
+            document.MyForm.submit();
+        }
+        function deleteUser(key){
+            document.MyForm.action="DeleteUserServlet?uid="+key;
+            document.MyForm.submit();
+        }
+
     </script>
     <style>
         .sty1{
@@ -85,35 +95,35 @@
         <div class="users">
             <h5>用户列表</h5>
             <hr style= "border:1px dashed skyblue;">
-            <form action="" method="post" id="MyForm">
-            <table style="overflow-y: scroll;">
-                <thead>	
-                    <tr>
-                        <pre style="font-weight:bolder">
-  uid            权限           操作
-                        </pre>
-                    </tr>
-                </thead>
-                
-                <tbody> 
-                    <%
-                        Map<String,Integer> users = new HashMap<>();
-                        users = (Map<String,Integer>)session.getAttribute("userMap");
-                        for(Map.Entry<String, Integer> entry : users.entrySet()) {
-                            String key = entry.getKey();
-                            int value = entry.getValue();
-                    %>
-                    <tr>
-                        <td><%=key%></td>
-                        <td><%=value%></td>
-                        <td>
-                            <input type="button" value="修改权限" onclick="document.getElementById('MyForm').action = 'AddAdminServlet'">
-                            <input type="button" value="删除" onclick="document.getElementById('MyForm').action = 'DeleteUserServlet'">
-                        </td>
-                    </tr>
-                         <%}%>
-                </tbody>
-            </table>   
+            <form name="MyForm" method="post">
+                <table style="overflow-y: scroll;">
+                    <thead>
+                        <tr>
+                            <pre style="font-weight:bolder">
+      uid            权限           操作
+                            </pre>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <%
+                            Map<String,Integer> users = (Map<String,Integer>)session.getAttribute("userMap");
+                            for(Map.Entry<String, Integer> entry : users.entrySet()) {
+                                String key = entry.getKey();
+                                int value = entry.getValue();
+                        %>
+                        <tr>
+                            <td><input name="key" value="<%=key%>"></td>
+                            <td><input name="value" value="<%=value%>"></td>
+
+                            <td>
+                                <input type="button" value="修改权限" onclick="updateFlag(<%=key%>,<%=value%>)">
+                                <input type="button" value="删除" onclick="deleteUser(<%=key%>)">
+                            </td>
+                        </tr>
+                             <%}%>
+                    </tbody>
+                </table>
             </form>         
         </div>
     </div>

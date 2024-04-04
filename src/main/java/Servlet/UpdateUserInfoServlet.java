@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UpdateUserInfoServlet extends HttpServlet{
 	public void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
-
-
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
+		int age = Integer.parseInt(request.getParameter("age"));
 	}
 }
