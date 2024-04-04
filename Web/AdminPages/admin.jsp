@@ -1,4 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="dao.dataBaseDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +13,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
     <script>
+        function showUserInfo(){
+            <%
+                String sql = "select uid,flag from users";
+                ResultSet res = dataBaseDAO.queryBySql(sql);
+                Map<String,Integer> userMap = new HashMap<>();
+                while(res.next()){
+                    userMap.put(res.getString("uid"),res.getInt("flag"));
+                }
+                session.setAttribute("userMap",userMap);
+                res.close();
+            %>
+        }
     </script>
     <style>
         .sty1{
@@ -50,7 +68,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="showUserInfo()">
 <div class="sty1">
         <div class="sty2">
             <h3>计算机知识交流平台分享-用户管理</h3>
@@ -67,28 +85,33 @@
         <div class="users">
             <h5>用户列表</h5>
             <hr style= "border:1px dashed skyblue;">
-            <form action="" method="post">
+            <form action="" method="post" id="MyForm">
             <table style="overflow-y: scroll;">
                 <thead>	
                     <tr>
                         <pre style="font-weight:bolder">
-id       uid            权限           操作
+  uid            权限           操作
                         </pre>
                     </tr>
                 </thead>
                 
                 <tbody> 
-                    <!-- {% for user_obj in zhu_obj %}  # 要将循环体放在for循环语法内部 -->
+                    <%
+                        Map<String,Integer> users = new HashMap<>();
+                        users = (Map<String,Integer>)session.getAttribute("userMap");
+                        for(Map.Entry<String, Integer> entry : users.entrySet()) {
+                            String key = entry.getKey();
+                            int value = entry.getValue();
+                    %>
                     <tr>
-                   <!-- <td>{{ user_obj.id }}</td>
-                   <td>{{ user_obj.name }}</td>
-                   <td>{{ user_obj.password }}</td> -->
+                        <td><%=key%></td>
+                        <td><%=value%></td>
                         <td>
-                            <input type="button" value="修改权限" onclick="">
-                            <input type="button" value="删除" onclick="">
+                            <input type="button" value="修改权限" onclick="document.getElementById('MyForm').action = 'AddAdminServlet'">
+                            <input type="button" value="删除" onclick="document.getElementById('MyForm').action = 'DeleteUserServlet'">
                         </td>
                     </tr>
-                <!-- {% endfor %} -->
+                         <%}%>
                 </tbody>
             </table>   
             </form>         

@@ -1,5 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="dao.dataBaseDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>userInfo</title>
     <script>
+        function showUserInfo(){
+            <%
+                String ud = (String)session.getAttribute("uid");
+                String sql = "select uid,username,password,email,age,flag from users where uid = ";
+                sql += ud;
+                ResultSet res = dataBaseDAO.queryBySql(sql);
+                String uid = "";
+                String username = "";
+                String password = "";
+                String email = "";
+                int age = 0;
+                int flag = 0;
 
+                while(res.next()){
+                    uid = res.getString("uid");
+                    username = res.getString("username");
+                    password = res.getString("password");
+                    email = res.getString("email");
+                    age = res.getInt("age");
+                    flag = res.getInt("flag");
+                }
+
+                session.setAttribute("userInfo_uid",uid);
+                session.setAttribute("userInfo_username",username);
+                session.setAttribute("userInfo_password",password);
+                session.setAttribute("userInfo_email",email);
+                session.setAttribute("userInfo_age",age);
+                session.setAttribute("userInfo_flag",flag);
+
+                res.close();
+            %>
+        }
     </script>
 
     <style>
@@ -53,7 +85,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="showUserInfo()">
 <div class="sty1">
     <div class="sty2">
         <h3>计算机知识交流平台分享-个人详细信息</h3>
@@ -65,28 +97,28 @@
         <form action="UpdateUserInfoServlet" method="post">
             <table style="overflow-y: scroll;">
                 <tr>
-                    <th>uid:    <input type="text" disabled></th>
+                    <th>uid:<input id="uid" type="text" value="<%=session.getAttribute("userInfo_uid")%>" disabled></th>
                 </tr>
                 <tr>
-                    <th>username:    <input type="text"></th>
+                    <th>username:<input type="text" value="<%=session.getAttribute("userInfo_username")%>"></th>
                 </tr>
                 <tr>
-                    <th>password:    <input type="text"></th>
+                    <th>password:<input type="text" value="<%=session.getAttribute("userInfo_password")%>"></th>
                 </tr>
                 <tr>
-                    <th>email:    <input type="text"></th>
+                    <th>email:<input type="text" value="<%=session.getAttribute("userInfo_email")%>"></th>
                 </tr>
                 <tr>
-                    <th>age:    <input type="text"></th>
+                    <th>age:<input type="text" value="<%=session.getAttribute("userInfo_age")%>"></th>
                 </tr>
                 <tr>
-                    <th>flag:	<input type="text" disabled></th>
+                    <th>flag:<input type="text" value="<%=session.getAttribute("userInfo_flag")%>" disabled></th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center;">
-                        <input type="button"value="提交" onclick="" style="margin-left: 30%;">
+                        <input type="button"value="提交" style="margin-left: 30%;">
                         <input type="button"value="取消" onclick="">
-                        <input type="button" value="返回" onclick="">
+                        <input type="button" value="返回" onclick="window.location.href='user.jsp';">
                     </td>
                 </tr>
             </table>

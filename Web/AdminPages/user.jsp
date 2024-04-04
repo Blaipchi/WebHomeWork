@@ -66,14 +66,17 @@
     </div>
 
     <div class="adminInfo">
-        <h4 style="margin-top: -10px;">username:</h4>
+        <h4 style="margin-top: -10px;">username:
+<%--            --%>
+            <%=session.getAttribute("username")%>
+        </h4>
         <hr color="skyblue">
     </div>
 
     <div class="users">
-        <input type="button"value="发布的文章" click=""><br>
-        <input type="button" value="编辑个人信息" onclick=""><br>
-        <input type="button" value="返回" onclick="">
+        <input type="button"value="发布的文章" onclick="window.location.href='ArticleSend.jsp';"><br>
+        <input type="button" value="编辑个人信息" onclick="window.location.href='userInfo.jsp';"><br>
+        <input type="button" value="退出登录" onclick="window.location.href='Login.jsp';">
     </div>
 </div>
 </body>
