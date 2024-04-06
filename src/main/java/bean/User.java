@@ -1,5 +1,6 @@
 package bean;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class User {
@@ -23,6 +24,7 @@ public class User {
         this.flag = flag;
         this.articleList = articleList;
     }
+
 
     public String getUid() {
         return uid;
@@ -94,4 +96,24 @@ public class User {
         return false;
    }
 
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+    public User(String username, String password, String email, int i) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.age = i;
+    }
+
+    public User(ResultSet resultSet) throws SQLException {
+        this.uid = resultSet.getString("uid");
+        this.username = resultSet.getString("username");
+        this.password = resultSet.getString("password");
+        this.email = resultSet.getString("email");
+        this.age = resultSet.getInt("age");
+        this.flag = resultSet.getInt("flag");
+    }
+    
 }

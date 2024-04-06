@@ -1,7 +1,8 @@
 package Servlet;
 import bean.User;
+import dao.UsersDAO;
+import jakarta.servlet.annotation.WebServlet;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +21,9 @@ public class LoginServlet extends HttpServlet {
 
         if (usersDAO.checkLogin(loginUser)) {
             // 登录成功，可以在此处设置 session、跳转到主页面等
-            response.getWriter().println("Login successful!");
+            response.getWriter().println("登录成功!");
         } else {
-            response.getWriter().println("Invalid username or password. Please try again.");
+            response.getWriter().println("用户名或密码错误，请重新输入");
         }
     }
 }
