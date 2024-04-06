@@ -80,7 +80,6 @@ public class User {
         this.articleList = articleList;
     }
 
-    //校验注册时的用户名密码是否符合要求，下面时AI自动生成的可供参考
     public boolean checkRegister(String username, String password, String email, int age) {
         if (username.length() >= 6 && username.length() <= 20) {
             if (password.length() >= 6 && password.length() <= 20) {
