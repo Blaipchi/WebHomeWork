@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="dao.dataBaseDAO" %>
+<%@ page import="dao.DBServices" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>userInfo</title>
     <script>
+
+
         function showUserInfo(){
             <%
                 String ud = (String)session.getAttribute("uid");
                 String sql = "select uid,username,password,email,age,flag from users where uid = ";
                 sql += ud;
-                ResultSet res = null;
+
                 try {
-                    res = dataBaseDAO.queryBySql(sql);
+                    DBServices.getConnection();
+                    ResultSet res = null;
+                    res = DBServices.queryBySql(sql);
 
                     String uid = "";
                     String username = "";
@@ -40,11 +44,12 @@
                     session.setAttribute("userInfo_email",email);
                     session.setAttribute("userInfo_age",age);
                     session.setAttribute("userInfo_flag",flag);
+
                 }
                 catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                res.close();
+
             %>
         }
     </script>
