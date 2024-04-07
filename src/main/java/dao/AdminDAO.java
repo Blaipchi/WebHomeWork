@@ -12,12 +12,8 @@ public class AdminDAO {
         //mysql修改语句,通过用户的uid,将数据库中的flag属性改为0
         String sql = "update users set flag = 0 where uid = '"+ uid +"'";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //执行修改语句
-        if(dbServices.modifyBySql(sql) == 1){
+        if(DBServices.modifyBySql(sql) == 1){
             //修改成功，返回true
             return true;
         }else{

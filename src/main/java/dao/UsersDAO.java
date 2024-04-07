@@ -14,12 +14,8 @@ public class UsersDAO {
         //mysql查询语句,根据账号查询用户是否已经注册
         String sql = "select * from users where loginName = '" + loginName + "'";
 
-        //mysql数据库的连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //数据库的查询
-        ResultSet resultSet = dbServices.queryBySql(sql);
+        ResultSet resultSet = DBServices.queryBySql(sql);
         //用user1存储从数据库中读取的该用户的账号和密码
         User user1 = new User();
         //判断数据库中查询到的结果是否为空
@@ -67,12 +63,8 @@ public class UsersDAO {
         //mysql插入语句
         String sql = "insert into users(uid,username,password,email,age,flag) values('" + uid + "','" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //执行插入语句
-        if(dbServices.modifyBySql(sql) == 1){
+        if(DBServices.modifyBySql(sql) == 1){
             //插入成功，返回true
             return true;
         }else {
@@ -97,12 +89,8 @@ public class UsersDAO {
             //mysql更新uid为uid用户的password,email,age的语句
             String sql = "update users set password = '" + password + "',email = '" + email + "',age = " + age + " where uid = '" + uid + "'";
 
-            //数据库连接
-            DBServices dbServices = new DBServices();
-            dbServices.getConnection();
-
             //执行更新语句
-            if(dbServices.modifyBySql(sql) == 1){
+            if(DBServices.modifyBySql(sql) == 1){
                 //更新成功，返回true
                 return true;
             }else {
@@ -127,12 +115,8 @@ public class UsersDAO {
         //mysql删除语句
         String sql = "delete from users where uid = '" + uid + "'";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //执行删除语句
-        if(dbServices.modifyBySql(sql) == 1){
+        if(DBServices.modifyBySql(sql) == 1){
             //删除成功，返回true
             return true;
         }else{
