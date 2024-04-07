@@ -52,16 +52,15 @@ public class UsersDAO {
      */
     public boolean addUser(User user){
         //获取用户注册的信息
-        String uid = user.getUid();
         String username = user.getUsername();
         String password = user.getPassword();
         String email = user.getEmail();
-        int age = user.getAge();
+        Integer age = user.getAge();
         //注册用户全权限默认是：1
-        int flag = 1;
+        Integer flag = 1;
 
         //mysql插入语句
-        String sql = "insert into users(uid,username,password,email,age,flag) values('" + uid + "','" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
+        String sql = "insert into users(username,password,email,age,flag) values('" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
 
         //执行插入语句
         if(DBServices.modifyBySql(sql) == 1){
@@ -78,10 +77,10 @@ public class UsersDAO {
      */
     public boolean updateUserInfo(User user){
         //获取用户修改的信息
-        String uid = user.getUid();
+        Integer uid = user.getUid();
         String password = user.getPassword();
         String email = user.getEmail();
-        int age = user.getAge();
+        Integer age = user.getAge();
 
         //判断用户是否输入了修改的信息
         if(password != null && email != null && age != 0){
@@ -110,7 +109,7 @@ public class UsersDAO {
 
     public boolean deleteUser(User user){
         //获取用户uid
-        String uid = user.getUid();
+        Integer uid = user.getUid();
 
         //mysql删除语句
         String sql = "delete from users where uid = '" + uid + "'";

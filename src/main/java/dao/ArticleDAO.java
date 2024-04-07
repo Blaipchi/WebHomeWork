@@ -5,6 +5,7 @@ import pojo.Article;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ArticleDAO {
@@ -13,14 +14,13 @@ public class ArticleDAO {
      */
     public boolean addArticle(Article article){
         //获取添加文章的信息
-        String uid = article.getUid();
-        String artid = article.getArtid();
+        Integer uid = article.getUid();
         String title = article.getTitle();
         String content = article.getContent();
-        String publicTime = article.getPublicTime();
+        Date publicTime = article.getPublicTime();
 
         //mysql插入语句
-        String sql = "insert into article(uid,artid,title,content,publicTime) values('"+uid+"','"+artid+"','"+title+"','"+content+"','"+publicTime+"')";
+        String sql = "insert into article(uid,title,content,publicTime) values('"+uid+"','"+title+"','"+content+"','"+publicTime+"')";
 
         //执行sql语句
         if(DBServices.modifyBySql(sql)==1){
@@ -37,7 +37,7 @@ public class ArticleDAO {
      */
     public boolean updateArticle(Article article){
         //获取修改文章的信息
-        String artid = article.getArtid();
+        Integer artid = article.getArtid();
         String content = article.getContent();
         String title = article.getTitle();
 
@@ -66,7 +66,7 @@ public class ArticleDAO {
     通过文章的artid进行删除
      */
     public boolean deleteArticle(Article article){
-        String artid = article.getArtid();
+        Integer artid = article.getArtid();
 
         //mysql删除语句
         String sql = "delete from article where artid='"+artid+"'";
@@ -103,11 +103,11 @@ public class ArticleDAO {
 
                     if (!resultSet.next()) break;
                     Article article = new Article();
-                    article.setUid(resultSet.getString("uid"));
-                    article.setArtid(resultSet.getString("artid"));
+                    article.setUid(resultSet.getInt("uid"));
+                    article.setArtid(resultSet.getInt("artid"));
                     article.setTitle(resultSet.getString("title"));
                     article.setContent(resultSet.getString("content"));
-                    article.setPublicTime(resultSet.getString("publicTime"));
+                    article.setPublicTime(resultSet.getDate("publicTime"));
                     articleList.add(article);
 
                 } catch (SQLException e) {
@@ -130,7 +130,7 @@ public class ArticleDAO {
      */
     public Article findArticleByArtid(Article article){
         //获取查询的artid
-        String artid = article.getArtid();
+        Integer artid = article.getArtid();
 
         //初始化需要返回的article0
         Article article0 = null;
@@ -146,11 +146,11 @@ public class ArticleDAO {
             //将查询结果存储在article中
             try {
                 if (resultSet.next()) {
-                    article0.setUid(resultSet.getString("uid"));
-                    article0.setArtid(resultSet.getString("artid"));
+                    article0.setUid(resultSet.getInt("uid"));
+                    article0.setArtid(resultSet.getInt("artid"));
                     article0.setTitle(resultSet.getString("title"));
                     article0.setContent(resultSet.getString("content"));
-                    article0.setPublicTime(resultSet.getString("publicTime"));
+                    article0.setPublicTime(resultSet.getDate("publicTime"));
                 }
                 //返回查询成功的article0
                 return article0;
@@ -169,7 +169,7 @@ public class ArticleDAO {
     //根据uid查询数据库中article表中的文章信息,查询成功返回一个article类
     public Article findArticleByUid(Article article){
         //获取查询的uid
-        String uid = article.getUid();
+        Integer uid = article.getUid();
 
         //初始化需要返回的article0
         Article article0 = null;
@@ -185,11 +185,11 @@ public class ArticleDAO {
             //将查询结果存储在article中
             try {
                 if (resultSet.next()) {
-                    article0.setUid(resultSet.getString("uid"));
-                    article0.setArtid(resultSet.getString("artid"));
+                    article0.setUid(resultSet.getInt("uid"));
+                    article0.setArtid(resultSet.getInt("artid"));
                     article0.setTitle(resultSet.getString("title"));
                     article0.setContent(resultSet.getString("content"));
-                    article0.setPublicTime(resultSet.getString("publicTime"));
+                    article0.setPublicTime(resultSet.getDate("publicTime"));
                 }
 
                 //返回查询成功的article0
