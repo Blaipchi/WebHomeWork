@@ -56,6 +56,7 @@ public class UsersDAO {
      */
     public boolean addUser(User user){
         //获取用户注册的信息
+        String uid = user.getUid();
         String username = user.getUsername();
         String password = user.getPassword();
         String email = user.getEmail();
@@ -64,7 +65,7 @@ public class UsersDAO {
         int flag = 1;
 
         //mysql插入语句
-        String sql = "insert into users(username,password,email,age,flag) values('" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
+        String sql = "insert into users(uid,username,password,email,age,flag) values('" + uid + "','" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
 
         //数据库连接
         DBServices dbServices = new DBServices();
@@ -85,6 +86,7 @@ public class UsersDAO {
      */
     public boolean updateUserInfo(User user){
         //获取用户修改的信息
+        String uid = user.getUid();
         String password = user.getPassword();
         String email = user.getEmail();
         int age = user.getAge();
@@ -92,8 +94,8 @@ public class UsersDAO {
         //判断用户是否输入了修改的信息
         if(password != null && email != null && age != 0){
             //用户输入了修改的信息
-            //mysql更新password,email,age的语句
-            String sql = "update users set password = '" + password + "',email = '" + email + "',age = " + age + "'";
+            //mysql更新uid为uid用户的password,email,age的语句
+            String sql = "update users set password = '" + password + "',email = '" + email + "',age = " + age + " where uid = '" + uid + "'";
 
             //数据库连接
             DBServices dbServices = new DBServices();
@@ -119,11 +121,11 @@ public class UsersDAO {
      */
 
     public boolean deleteUser(User user){
-        //获取用户名
-        String username = user.getUsername();
+        //获取用户uid
+        String uid = user.getUid();
 
         //mysql删除语句
-        String sql = "delete from users where username = '" + username + "'";
+        String sql = "delete from users where uid = '" + uid + "'";
 
         //数据库连接
         DBServices dbServices = new DBServices();
