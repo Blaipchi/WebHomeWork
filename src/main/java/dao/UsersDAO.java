@@ -1,6 +1,6 @@
 package dao;
 
-import bean.User;
+import pojo.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +14,8 @@ public class UsersDAO {
         //mysql查询语句,根据账号查询用户是否已经注册
         String sql = "select * from users where loginName = '" + loginName + "'";
 
-        //mysql数据库的连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //数据库的查询
-        ResultSet resultSet = dbServices.queryBySql(sql);
+        ResultSet resultSet = DBServices.queryBySql(sql);
         //用user1存储从数据库中读取的该用户的账号和密码
         User user1 = new User();
         //判断数据库中查询到的结果是否为空
@@ -56,6 +52,7 @@ public class UsersDAO {
      */
     public boolean addUser(User user){
         //获取用户注册的信息
+        String uid = user.getUid();
         String username = user.getUsername();
         String password = user.getPassword();
         String email = user.getEmail();
@@ -64,14 +61,10 @@ public class UsersDAO {
         int flag = 1;
 
         //mysql插入语句
-        String sql = "insert into users(username,password,email,age,flag) values('" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
-
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
+        String sql = "insert into users(uid,username,password,email,age,flag) values('" + uid + "','" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
 
         //执行插入语句
-        if(dbServices.modifyBySql(sql) == 1){
+        if(DBServices.modifyBySql(sql) == 1){
             //插入成功，返回true
             return true;
         }else {
@@ -85,6 +78,7 @@ public class UsersDAO {
      */
     public boolean updateUserInfo(User user){
         //获取用户修改的信息
+        String uid = user.getUid();
         String password = user.getPassword();
         String email = user.getEmail();
         int age = user.getAge();
@@ -92,15 +86,11 @@ public class UsersDAO {
         //判断用户是否输入了修改的信息
         if(password != null && email != null && age != 0){
             //用户输入了修改的信息
-            //mysql更新password,email,age的语句
-            String sql = "update users set password = '" + password + "',email = '" + email + "',age = " + age + "'";
-
-            //数据库连接
-            DBServices dbServices = new DBServices();
-            dbServices.getConnection();
+            //mysql更新uid为uid用户的password,email,age的语句
+            String sql = "update users set password = '" + password + "',email = '" + email + "',age = " + age + " where uid = '" + uid + "'";
 
             //执行更新语句
-            if(dbServices.modifyBySql(sql) == 1){
+            if(DBServices.modifyBySql(sql) == 1){
                 //更新成功，返回true
                 return true;
             }else {
@@ -119,18 +109,14 @@ public class UsersDAO {
      */
 
     public boolean deleteUser(User user){
-        //获取用户名
-        String username = user.getUsername();
+        //获取用户uid
+        String uid = user.getUid();
 
         //mysql删除语句
-        String sql = "delete from users where username = '" + username + "'";
-
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
+        String sql = "delete from users where uid = '" + uid + "'";
 
         //执行删除语句
-        if(dbServices.modifyBySql(sql) == 1){
+        if(DBServices.modifyBySql(sql) == 1){
             //删除成功，返回true
             return true;
         }else{

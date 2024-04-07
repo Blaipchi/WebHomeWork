@@ -1,59 +1,88 @@
 package pojo;
 
-
-import lombok.Data;
-
-import java.io.Serializable;
 import java.util.List;
 
+public class User {
+    String uid;
+    String username;
+    String password;
+    String email;
+    int age;
+    int flag;
+    List<pojo.Article> articleList;
 
-/**
-* 用户
-* @TableName User
- * 基础字段 get/set 方法已经利用@Data注入
- * 直接用就可以了
-*/
-@Data
-public class User implements Serializable {
+    public User() {
 
-    /**
-    * id
-    */
-    private Long uid;
+    }
+    public User(String uid, String username, String password, String email, int age, int flag, List<pojo.Article> articleList) {
+        this.uid = uid;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.flag = flag;
+        this.articleList = articleList;
+    }
 
-    /**
-    * 账号
-    */
-    private String username;
+    public String getUid() {
+        return uid;
+    }
 
-    /**
-    * 密码
-    */
-    private String password;
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
-    /**
-    * 邮箱
-    */
-    private String email;
+    public String getUsername() {
+        return username;
+    }
 
-    /**
-    * 年龄
-    */
-    private Integer age;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    /**
-    * 用户角色：user/admin/ban
-    */
-    private Integer flag;
+    public String getPassword() {
+        return password;
+    }
 
-    /**
-     * 用户所属文章表
-     */
-    private List<Article> articleList;
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public boolean checkRegister() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public List<pojo.Article> getArticleList() {
+        return articleList;
+    }
+
+    public void setArticleList(List<pojo.Article> articleList) {
+        this.articleList = articleList;
+    }
+
+    public boolean checkRegister(String username, String password, String email, int age) {
         if (username.length() >= 6 && username.length() <= 20) {
-            if (username.length() >= 6 && username.length() <= 20) {
+            if (password.length() >= 6 && password.length() <= 20) {
                 if (email.length() >= 6 && email.length() <= 20) {
                     if (age >= 18 && age <= 100) {
                         return true;
@@ -63,4 +92,5 @@ public class User implements Serializable {
         }
         return false;
     }
+
 }

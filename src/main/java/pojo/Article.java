@@ -1,59 +1,63 @@
 package pojo;
 
+public class Article {
+    String uid;
+    String artid;
+    String title;
+    String content;
+    String publicTime;
 
-import lombok.Data;
+    public Article()
+    {
 
-import java.io.Serializable;
+    }
 
-import java.util.Date;
+    public Article(String uid, String artid, String title, String content, String publicTime)
+    {
+        this.uid = uid;
+        this.artid = artid;
+        this.title = title;
+        this.content = content;
+        this.publicTime = publicTime;
+    }
 
+    public String getUid() {
+        return uid;
+    }
 
-/**
-* 文章
-* @TableName Article
-*/
-@Data
-public class Article implements Serializable {
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
-    /**
-    * id
-    */
-    private Long artid;
+    public String getArtid() {
+        return artid;
+    }
 
-    /**
-    * 标题
-    */
-    private String title;
+    public void setArtid(String artid) {
+        this.artid = artid;
+    }
 
-    /**
-    * 内容
-    */
-    private String content;
+    public String getTitle() {
+        return title;
+    }
 
-    /**
-    * 点赞数
-    */
-    private Integer thumbNum;
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    /**
-    * 收藏数
-    */
-    private Integer favourNum;
+    public String getContent() {
+        return content;
+    }
 
-    /**
-    * 创建用户 id
-    */
-    private Long uid;
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-    /**
-    * 创建时间
-    */
-    private Date publicTime;
+    public String getPublicTime() {
+        return publicTime;
+    }
 
-    /**
-    * 是否删除
-    */
-    private Integer isDelete;
-
-
+    public void setPublicTime(String publicTime) {
+        this.publicTime = publicTime;
+    }
 }

@@ -1,7 +1,9 @@
-package Servlet;
-import bean.User;
+package servlet;
+import pojo.User;
+import dao.UsersDAO;
+import jakarta.servlet.annotation.WebServlet;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +18,12 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User loginUser = new User(username, password);
+        User loginUser = new User();
+        loginUser.setUsername(username);
+        loginUser.setPassword(password);
 
-        if (usersDAO.checkLogin(loginUser)) {
+
+        if (usersDAO.checkLogin(loginUser.getUsername(), loginUser.getPassword())) {
             // 登录成功，可以在此处设置 session、跳转到主页面等
             response.getWriter().println("Login successful!");
         } else {

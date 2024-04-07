@@ -1,6 +1,6 @@
 package dao;
 
-import bean.Article;
+import pojo.Article;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,12 +22,8 @@ public class ArticleDAO {
         //mysql插入语句
         String sql = "insert into article(uid,artid,title,content,publicTime) values('"+uid+"','"+artid+"','"+title+"','"+content+"','"+publicTime+"')";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //执行sql语句
-        if(dbServices.modifyBySql(sql)==1){
+        if(DBServices.modifyBySql(sql)==1){
             //添加成功，返回true
             return true;
         }else {
@@ -48,15 +44,11 @@ public class ArticleDAO {
         //mysql修改语句
         String sql = "update article set content='"+content+"',title='"+title+"' where artid='"+artid+"'";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //判断用户是否输入了修改的信息
         if(content != null && title != null){
             //用户输入了修改的信息
             //执行sql语句
-            if(dbServices.modifyBySql(sql)==1){
+            if(DBServices.modifyBySql(sql)==1){
                 //修改成功，返回true
                 return true;
             }else {
@@ -79,12 +71,8 @@ public class ArticleDAO {
         //mysql删除语句
         String sql = "delete from article where artid='"+artid+"'";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        dbServices.getConnection();
-
         //执行sql语句
-        if(dbServices.modifyBySql(sql)==1){
+        if(DBServices.modifyBySql(sql)==1){
             //删除成功，返回true
             return true;
         }else {
@@ -104,9 +92,7 @@ public class ArticleDAO {
         //mysql查询语句
         String sql = "select * from article";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        ResultSet resultSet = dbServices.queryBySql(sql);
+        ResultSet resultSet = DBServices.queryBySql(sql);
 
         //执行sql语句,并且将查询结果存储在存放在articleList中
         if(resultSet!=null){
@@ -152,9 +138,7 @@ public class ArticleDAO {
         //mysql的数据库查询根据artid查询语句
         String sql = "select * from article where artid='"+artid+"'";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        ResultSet resultSet = dbServices.queryBySql(sql);
+        ResultSet resultSet = DBServices.queryBySql(sql);
 
         //执行sql语句,将查询成功的结果存储在article中
         if(resultSet!=null){
@@ -193,9 +177,7 @@ public class ArticleDAO {
         //mysql的数据库查询根据uid查询语句
         String sql = "select * from article where uid='"+uid+"'";
 
-        //数据库连接
-        DBServices dbServices = new DBServices();
-        ResultSet resultSet = dbServices.queryBySql(sql);
+        ResultSet resultSet = DBServices.queryBySql(sql);
 
         //执行sql语句,将查询成功的结果存储在article中
         if(resultSet!=null){
