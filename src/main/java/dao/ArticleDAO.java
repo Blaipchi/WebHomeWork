@@ -1,6 +1,6 @@
 package dao;
 
-import bean.Article;
+import pojo.Article;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

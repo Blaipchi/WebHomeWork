@@ -1,6 +1,6 @@
 package dao;
 
-import bean.User;
+import pojo.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
