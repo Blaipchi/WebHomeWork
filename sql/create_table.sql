@@ -22,10 +22,7 @@ create table article
     artid      bigint auto_increment comment 'id' primary key,
     title      varchar(512)                       null comment '标题',
     content    text                               null comment '内容',
-    thumbNum   int      default 0                 not null comment '点赞数',
-    favourNum  int      default 0                 not null comment '收藏数',
     uid        bigint                             not null comment '创建用户 id',
-    publicTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
-    isDelete   tinyint  default 0                 not null comment '是否删除'
+    publicTime datetime default CURRENT_TIMESTAMP not null comment '创建时间'
 ) comment '文章' collate = utf8mb4_unicode_ci;
 
