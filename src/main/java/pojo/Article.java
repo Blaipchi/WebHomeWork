@@ -18,7 +18,7 @@ public class Article implements Serializable {
     /**
     * id
     */
-    private Long artId;
+    private Long artid;
 
     /**
     * 标题
@@ -48,7 +48,7 @@ public class Article implements Serializable {
     /**
     * 创建时间
     */
-    private Date createTime;
+    private Date publicTime;
 
     /**
     * 是否删除

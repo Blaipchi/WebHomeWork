@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
 * 用户
-* @TableName user
+* @TableName User
  * 基础字段 get/set 方法已经利用@Data注入
  * 直接用就可以了
 */
@@ -24,12 +24,12 @@ public class User implements Serializable {
     /**
     * 账号
     */
-    private String userName;
+    private String username;
 
     /**
     * 密码
     */
-    private String userPassword;
+    private String password;
 
     /**
     * 邮箱
@@ -44,7 +44,7 @@ public class User implements Serializable {
     /**
     * 用户角色：user/admin/ban
     */
-    private String userRole;
+    private Integer flag;
 
     /**
      * 用户所属文章表
@@ -52,8 +52,8 @@ public class User implements Serializable {
     private List<Article> articleList;
 
     public boolean checkRegister() {
-        if (userName.length() >= 6 && userName.length() <= 20) {
-            if (userPassword.length() >= 6 && userPassword.length() <= 20) {
+        if (username.length() >= 6 && username.length() <= 20) {
+            if (username.length() >= 6 && username.length() <= 20) {
                 if (email.length() >= 6 && email.length() <= 20) {
                     if (age >= 18 && age <= 100) {
                         return true;
