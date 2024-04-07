@@ -105,7 +105,7 @@
 
     <div class="users">
         <h5>用户具体信息</h5>
-        <form action="UpdateUserInfoServlet" method="post">
+        <form action="../UpdateUserInfoServlet" method="post">
             <table style="overflow-y: scroll;">
                 <tr>
                     <th>uid:<input type="text" value="<%=session.getAttribute("userInfo_uid")%>" disabled></th>
@@ -128,7 +128,7 @@
                 <tr>
                     <td colspan="3" style="text-align: center;">
                         <input type="submit"value="提交" style="margin-left: 30%;">
-                        <input type="button"value="取消" onclick="">
+                        <input type="button"value="取消" onclick="location.reload()">
                         <input type="button" value="返回" onclick="window.location.href='user.jsp';">
                     </td>
                 </tr>
