@@ -124,87 +124,43 @@ public class ArticleDAO {
         }
     }
 
-    /*根据artid查询数据库中article表中的文章信息,查询成功返回一个article类
-    输入需要查询的artid，查询成功返回一个article类
-     */
-    public Article findArticleByArtid(Article article){
-        //获取查询的artid
-        Integer artid = article.getArtid();
-
-        //初始化需要返回的article0
-        Article article0 = null;
-
-        //mysql的数据库查询根据artid查询语句
-        String sql = "select * from article where artid='"+artid+"'";
-
-        ResultSet resultSet = DBServices.queryBySql(sql);
-
-        //执行sql语句,将查询成功的结果存储在article中
-        if(resultSet!=null){
-            //查询成功
-            //将查询结果存储在article中
-            try {
-                if (resultSet.next()) {
-                    article0.setUid(resultSet.getInt("uid"));
-                    article0.setArtid(resultSet.getInt("artid"));
-                    article0.setTitle(resultSet.getString("title"));
-                    article0.setContent(resultSet.getString("content"));
-                    article0.setPublicTime(resultSet.getDate("publicTime"));
-                }
-                //返回查询成功的article0
-                return article0;
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }else {
-            //查询失败
-            System.out.println("查询失败");
-            //返回查询失败的article0，即返回一个空article0
-            return article0;
-        }
-    }
-
     //根据uid查询数据库中article表中的文章信息,查询成功返回一个article类
-    public Article findArticleByUid(Article article){
-        //获取查询的uid
-        Integer uid = article.getUid();
-
+    public List<Article> findArticleByUid(Integer uid) {
         //初始化需要返回的article0
+        //初始化，用于存储查询结果
+        List<Article> articleList = new ArrayList<>();
         Article article0 = null;
 
         //mysql的数据库查询根据uid查询语句
-        String sql = "select * from article where uid='"+uid+"'";
+        String sql = "select * from article where uid='" + uid + "'";
 
         ResultSet resultSet = DBServices.queryBySql(sql);
 
-        //执行sql语句,将查询成功的结果存储在article中
-        if(resultSet!=null){
+        //执行sql语句,并且将查询结果存储在存放在articleList中
+        if (resultSet != null) {
             //查询成功
-            //将查询结果存储在article中
-            try {
-                if (resultSet.next()) {
-                    article0.setUid(resultSet.getInt("uid"));
-                    article0.setArtid(resultSet.getInt("artid"));
-                    article0.setTitle(resultSet.getString("title"));
-                    article0.setContent(resultSet.getString("content"));
-                    article0.setPublicTime(resultSet.getDate("publicTime"));
+            //将查询结果存储在articleList中
+            while (true) {
+                try {
+
+                    if (!resultSet.next()) break;
+                    Article article = new Article();
+                    article.setUid(resultSet.getInt("uid"));
+                    article.setArtid(resultSet.getInt("artid"));
+                    article.setTitle(resultSet.getString("title"));
+                    article.setContent(resultSet.getString("content"));
+                    article.setPublicTime(resultSet.getDate("publicTime"));
+                    articleList.add(article);
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
-
-                //返回查询成功的article0
-                return article0;
-
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
             }
-        }else {
-            //查询失败
+            //返回查询成功的articleList
+            return articleList;
+        }else{
             System.out.println("查询失败");
-            //返回查询失败的article0，即返回一个空article0
-            return article0;
+            return articleList;
         }
     }
-
-
-
 }
