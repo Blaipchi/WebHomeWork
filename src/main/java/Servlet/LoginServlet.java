@@ -1,4 +1,4 @@
-package servlet;
+package Servlet;
 import pojo.User;
 import dao.UsersDAO;
 import jakarta.servlet.annotation.WebServlet;

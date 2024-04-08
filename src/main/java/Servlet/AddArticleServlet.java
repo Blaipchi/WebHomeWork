@@ -11,5 +11,18 @@ import java.io.IOException;
 public class AddArticleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String title = req.getParameter("title");
+        String content = req.getParameter("content");
+        // Integer uid = (Integer) req.getSession().getAttribute("uid");
+
+        /* Article article = new Article(uid,title,content);
+        ArticleDAO articleDAO = new ArticleDAO();
+        if(articleDAO.addArticle(article)) {
+            // 发布文章成功，返回用户界面
+            resp.sendRedirect(req.getContextPath()+"/AdminPages/user.jsp");
+        } else {
+
+        }
+         */
     }
 }
