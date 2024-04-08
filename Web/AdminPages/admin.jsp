@@ -16,20 +16,20 @@
             <%
             try {
                 String sql = "select uid,username,flag from users";
-                //Connection con = DBServices.getConnection();
+                    //Connection con = DBServices.getConnection();
                 DBServices.getConnection();
                 ResultSet res = DBServices.queryBySql(sql);
                 List<User> lu = new ArrayList<User>();
-                //Map<String,Integer> userMap = new HashMap<>();
+                    //Map<String,Integer> userMap = new HashMap<>();
                 while(res.next()){
                 	User user = new User();
-                	user.setUid(res.getString("uid"));
-                	user.setUserName(res.getString("username"));
+                	user.setUid(res.getInt("uid"));
+                    user.setUsername(res.getString("username"));
                 	user.setFlag(res.getInt("flag"));
                 	lu.add(user);
-                    //userMap.put(res.getString("uid"),res.getInt("flag"));
+                        //userMap.put(res.getString("uid"),res.getInt("flag"));
                 }
-                //session.setAttribute("userMap",userMap);
+                    //session.setAttribute("userMap",userMap);
                 session.setAttribute("userMap",lu);
             }
             catch (SQLException e) {
@@ -38,8 +38,8 @@
             %>
         }
 
-        function updateFlag(uid,username,flag){
-            document.MyForm.action="../AddAdminServlet?uid="+uid+"&flag="+flag+"&username="+username;
+        function updateFlag(uid,flag){
+            document.MyForm.action="../AddAdminServlet?uid="+uid+"&flag="+flag;
             document.MyForm.submit();
         }
         function deleteUser(uid){
@@ -119,15 +119,15 @@ uid      usernamme      flag      操作
 
                 <tbody>
                 <%
-                    //Map<String,Integer> users = (Map<String,Integer>)session.getAttribute("userMap");
+                        //Map<String,Integer> users = (Map<String,Integer>)session.getAttribute("userMap");
                     List<User> lu = (ArrayList<User>)session.getAttribute("userMap");
-                    //for(Map.Entry<String, Integer> entry : users.entrySet()) {
+                        //for(Map.Entry<String, Integer> entry : users.entrySet()) {
                     for(int i=0;i<lu.size();++i) {
-                        //String key = entry.getKey();
-                        //int value = entry.getValue();
+                            //String key = entry.getKey();
+                            //int value = entry.getValue();
                         User j = lu.get(i);
-                        String uid = j.getUid();
-                        String username = j.getUserName();
+                        int uid = j.getUid();
+                        String username = j.getUsername();
                         int flag = j.getFlag();
                 %>
                 <tr>
@@ -136,7 +136,7 @@ uid      usernamme      flag      操作
                     <td><input name="flag" value="<%=flag%>"></td>
 
                     <td>
-                        <input type="button" value="修改权限" onclick="updateFlag(<%=uid%>,<%=username%>,<%=flag%>)">
+                        <input type="button" value="修改权限" onclick="updateFlag(<%=uid%>,<%=flag%>)">
                         <input type="button" value="删除" onclick="deleteUser(<%=uid%>)">
                     </td>
                 </tr>

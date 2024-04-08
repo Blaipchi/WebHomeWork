@@ -14,7 +14,8 @@ import pojo.User;
 public class DeleteUserServlet extends HttpServlet  {
 
 	public void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
-		String uid = request.getParameter("uid");
+		int uid;
+		uid = Integer.parseInt(request.getParameter("uid"));
 
 		UsersDAO usersDAO = new UsersDAO();
 		User user = new User();

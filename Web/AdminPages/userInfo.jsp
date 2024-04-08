@@ -20,7 +20,7 @@
                     ResultSet res = null;
                     res = DBServices.queryBySql(sql);
 
-                    String uid = "";
+                    int uid = 0;
                     String username = "";
                     String password = "";
                     String email = "";
@@ -28,7 +28,7 @@
                     int flag = 0;
 
                     while(res.next()){
-                        uid = res.getString("uid");
+                        uid = res.getInt("uid");
                         username = res.getString("username");
                         password = res.getString("password");
                         email = res.getString("email");

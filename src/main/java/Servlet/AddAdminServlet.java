@@ -13,8 +13,8 @@ import java.io.IOException;
 public class AddAdminServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 
-        String uid = "";
-        uid = request.getParameter("uid");
+        int uid;
+        uid = Integer.parseInt(request.getParameter("uid"));
 
         int flag ;
         flag = Integer.parseInt(request.getParameter("flag"));
