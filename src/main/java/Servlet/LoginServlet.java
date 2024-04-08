@@ -1,7 +1,8 @@
 package Servlet;
-import bean.User;
+import pojo.User;
 import dao.UsersDAO;
 import jakarta.servlet.annotation.WebServlet;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,13 +18,16 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User loginUser = new User(username, password);
+        User loginUser = new User();
+        loginUser.setUsername(username);
+        loginUser.setPassword(password);
 
-        if (usersDAO.checkLogin(loginUser)) {
+
+        if (usersDAO.checkLogin(loginUser.getUsername(), loginUser.getPassword())) {
             // 登录成功，可以在此处设置 session、跳转到主页面等
-            response.getWriter().println("登录成功!");
+            response.getWriter().println("Login successful!");
         } else {
-            response.getWriter().println("用户名或密码错误，请重新输入");
+            response.getWriter().println("Invalid username or password. Please try again.");
         }
     }
 }

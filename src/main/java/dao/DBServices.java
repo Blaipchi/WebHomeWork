@@ -3,9 +3,9 @@ package dao;
 import java.sql.*;
 
 public class DBServices {
-	private static final String url = "jdbc:mysql://localhost:3306/jspdemo4";
+	private static final String url = "jdbc:mysql://localhost:3306/web_db";
 	private static final String user = "root";
-	private static final String password = "1234";
+	private static final String password = "123456";
 
 	// 连接数据库
 	public static Connection getConnection() {

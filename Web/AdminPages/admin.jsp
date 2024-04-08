@@ -1,37 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="dao.dataBaseDAO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
+<%@ page import="dao.DBServices" %>
+<%@ page import="java.util.*" %>
+<%@ page import="pojo.*" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
     <script>
         function showUserInfo(){
             <%
-                String sql = "select uid,flag from users";
-                ResultSet res = dataBaseDAO.queryBySql(sql);
-                Map<String,Integer> userMap = new HashMap<>();
+            try {
+                String sql = "select uid,username,flag from users";
+                //Connection con = DBServices.getConnection();
+                DBServices.getConnection();
+                ResultSet res = DBServices.queryBySql(sql);
+                List<User> lu = new ArrayList<User>();
+                //Map<String,Integer> userMap = new HashMap<>();
                 while(res.next()){
-                    userMap.put(res.getString("uid"),res.getInt("flag"));
+                	User user = new User();
+                	user.setUid(res.getString("uid"));
+                	user.setUserName(res.getString("username"));
+                	user.setFlag(res.getInt("flag"));
+                	lu.add(user);
+                    //userMap.put(res.getString("uid"),res.getInt("flag"));
                 }
-                session.setAttribute("userMap",userMap);
-                res.close();
+                //session.setAttribute("userMap",userMap);
+                session.setAttribute("userMap",lu);
+            }
+            catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             %>
         }
 
-        function updateFlag(key,value){
-            document.MyForm.action="AddAdminServlet?uid="+key+"&flag="+value;
+        function updateFlag(uid,username,flag){
+            document.MyForm.action="../AddAdminServlet?uid="+uid+"&flag="+flag+"&username="+username;
             document.MyForm.submit();
         }
-        function deleteUser(key){
-            document.MyForm.action="DeleteUserServlet?uid="+key;
+        function deleteUser(uid){
+            document.MyForm.action="../DeleteUserServlet?uid="+uid;
             document.MyForm.submit();
         }
 
@@ -65,6 +77,7 @@
             text-shadow: 1px 1px gray;
             background-color:white;
             color:black;
+            width:80px;
         }
 
         .users{
@@ -80,52 +93,58 @@
 </head>
 <body onload="showUserInfo()">
 <div class="sty1">
-        <div class="sty2">
-            <h3>计算机知识交流平台分享-用户管理</h3>
-            <hr color="skyblue">
-        </div>
-        
-        <div class="adminInfo">
-            <h4 style="margin-top: -10px;">adminName:</h4>
-            <input type="button" value="返回" onclick="" style="margin-right: 30px;">
-            <input type="button" value="退出登录" onclick="">
-            <hr color="skyblue">
-        </div>
-
-        <div class="users">
-            <h5>用户列表</h5>
-            <hr style= "border:1px dashed skyblue;">
-            <form name="MyForm" method="post">
-                <table style="overflow-y: scroll;">
-                    <thead>
-                        <tr>
-                            <pre style="font-weight:bolder">
-      uid            权限           操作
-                            </pre>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <%
-                            Map<String,Integer> users = (Map<String,Integer>)session.getAttribute("userMap");
-                            for(Map.Entry<String, Integer> entry : users.entrySet()) {
-                                String key = entry.getKey();
-                                int value = entry.getValue();
-                        %>
-                        <tr>
-                            <td><input name="key" value="<%=key%>"></td>
-                            <td><input name="value" value="<%=value%>"></td>
-
-                            <td>
-                                <input type="button" value="修改权限" onclick="updateFlag(<%=key%>,<%=value%>)">
-                                <input type="button" value="删除" onclick="deleteUser(<%=key%>)">
-                            </td>
-                        </tr>
-                             <%}%>
-                    </tbody>
-                </table>
-            </form>         
-        </div>
+    <div class="sty2">
+        <h3>计算机知识交流平台分享-用户管理</h3>
+        <hr color="skyblue">
     </div>
+
+    <div class="adminInfo">
+        <h4 style="margin-top: -10px;">adminName:<%=session.getAttribute("adminName") %></h4>
+        <input type="button" value="退出登录" onclick="window.location.href='../LoginPage/Login.jsp';">
+        <hr color="skyblue">
+    </div>
+
+    <div class="users">
+        <h5>用户列表</h5>
+        <hr style= "border:1px dashed skyblue;">
+        <form name="MyForm" method="post">
+            <table style="overflow-y: scroll;">
+                <thead>
+                <tr>
+                            <pre style="font-weight:bolder">
+uid      usernamme      flag      操作
+                            </pre>
+                </tr>
+                </thead>
+
+                <tbody>
+                <%
+                    //Map<String,Integer> users = (Map<String,Integer>)session.getAttribute("userMap");
+                    List<User> lu = (ArrayList<User>)session.getAttribute("userMap");
+                    //for(Map.Entry<String, Integer> entry : users.entrySet()) {
+                    for(int i=0;i<lu.size();++i) {
+                        //String key = entry.getKey();
+                        //int value = entry.getValue();
+                        User j = lu.get(i);
+                        String uid = j.getUid();
+                        String username = j.getUserName();
+                        int flag = j.getFlag();
+                %>
+                <tr>
+                    <td><input name="uid" value="<%=uid%>" disabled></td>
+                    <td><input name="username" value="<%=username%>"></td>
+                    <td><input name="flag" value="<%=flag%>"></td>
+
+                    <td>
+                        <input type="button" value="修改权限" onclick="updateFlag(<%=uid%>,<%=username%>,<%=flag%>)">
+                        <input type="button" value="删除" onclick="deleteUser(<%=uid%>)">
+                    </td>
+                </tr>
+                <%}%>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
 </body>
 </html>
