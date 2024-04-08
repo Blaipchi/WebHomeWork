@@ -17,8 +17,7 @@ public class User {
     public User() {
 
     }
-    public User(Integer uid, String username, String password, String email, Integer age, Integer flag, List<pojo.Article> articleList) {
-        this.uid = uid;
+    public User(String username, String password, String email, Integer age, Integer flag, List<pojo.Article> articleList) {
         this.username = username;
         this.password = password;
         this.email = email;
