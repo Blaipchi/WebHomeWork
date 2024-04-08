@@ -7,7 +7,7 @@ public class AdminDAO {
     修改成功返回true,返回失败返回false*/
     public boolean addAdmin(User user){
         //获取用户user的flag属性
-        String uid = user.getUid();
+        Integer uid = user.getUid();
 
         //mysql修改语句,通过用户的uid,将数据库中的flag属性改为0
         String sql = "update users set flag = 0 where uid = '"+ uid +"'";
