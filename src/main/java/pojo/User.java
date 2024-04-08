@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class User {
-    private String uid;
+    private Integer uid;
     private String username;
     private String password;
     private String email;
@@ -17,8 +17,7 @@ public class User {
     public User() {
 
     }
-    public User(String uid, String username, String password, String email, int age, int flag, List<pojo.Article> articleList) {
-        this.uid = uid;
+    public User(String username, String password, String email, int age, int flag, List<pojo.Article> articleList) {
         this.username = username;
         this.password = password;
         this.email = email;

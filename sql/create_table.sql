@@ -5,7 +5,7 @@ create database if not exists web_db;
 use web_db;
 
 -- 用户表
-create table web_db.user
+create table user
 (
     uid      bigint auto_increment comment 'id' primary key,
     username varchar(256)  not null comment '账号',
@@ -15,14 +15,18 @@ create table web_db.user
     flag     int default 1 not null comment '用户角色：1-用户/0-管理员'
 ) comment '用户' collate = utf8mb4_unicode_ci;
 
+insert into user(`username`, `password`, `email`, `age`, `flag`)
+    value (null, 'web_admin', 'web_admin', 'web_admin@email', 20, 0);
 
 -- 文章表
 create table article
 (
     artid      bigint auto_increment comment 'id' primary key,
-    title      varchar(512)                       null comment '标题',
-    content    text                               null comment '内容',
-    uid        bigint                             not null comment '创建用户 id',
-    publicTime datetime default CURRENT_TIMESTAMP not null comment '创建时间'
+    title      varchar(512) null comment '标题',
+    content    text         null comment '内容',
+    uid        bigint       not null comment '创建用户 id',
+    publicTime datetime default CURRENT_TIMESTAMP comment '创建时间'
 ) comment '文章' collate = utf8mb4_unicode_ci;
 
+insert into article(`title`, `content`, `uid`)
+    value ('text_title', 'text_content', 1);
