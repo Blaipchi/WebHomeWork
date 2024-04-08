@@ -20,8 +20,9 @@ public class AddArticleServlet extends HttpServlet {
         if(articleDAO.addArticle(article)) {
             // 发布文章成功，返回用户界面
             resp.sendRedirect(req.getContextPath()+"/AdminPages/user.jsp");
+            System.out.println("文章添加成功");
         } else {
-
+            System.out.println("文章添加失败");
         }
          */
     }
