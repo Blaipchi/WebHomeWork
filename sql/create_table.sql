@@ -17,6 +17,8 @@ create table user
 
 insert into user(`username`, `password`, `email`, `age`, `flag`)
     value (null, 'web_admin', 'web_admin', 'web_admin@email', 20, 0);
+insert into user(`username`, `password`, `email`, `age`, `flag`)
+    value (null, 'web_user', 'web_user', 'web_user@email', 20, 1);
 
 -- 文章表
 create table article

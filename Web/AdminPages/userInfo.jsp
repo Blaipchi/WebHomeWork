@@ -9,8 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>userInfo</title>
     <script>
-
-
         function showUserInfo(){
             <%
                 String ud = (String)session.getAttribute("uid");
@@ -37,7 +35,6 @@
                         age = res.getInt("age");
                         flag = res.getInt("flag");
                     }
-
                     session.setAttribute("userInfo_uid",uid);
                     session.setAttribute("userInfo_username",username);
                     session.setAttribute("userInfo_password",password);

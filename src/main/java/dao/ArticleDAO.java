@@ -17,10 +17,9 @@ public class ArticleDAO {
         Integer uid = article.getUid();
         String title = article.getTitle();
         String content = article.getContent();
-        Date publicTime = article.getPublicTime();
 
         //mysql插入语句
-        String sql = "insert into article(uid,title,content,publicTime) values('"+uid+"','"+title+"','"+content+"','"+publicTime+"')";
+        String sql = "insert into article(uid,title,content) values('"+uid+"','"+title+"','"+content+"')";
 
         //执行sql语句
         if(DBServices.modifyBySql(sql)==1){
