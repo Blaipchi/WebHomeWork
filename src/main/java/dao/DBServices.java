@@ -7,25 +7,25 @@ public class DBServices {
 	private static final String user = "root";
 	private static final String password = "123456";
 
-	// Á¬½ÓÊı¾İ¿â
+	// è¿æ¥æ•°æ®åº“
 	public static Connection getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(url, user, password);
-			System.out.println("Êı¾İ¿âÁ¬½Ó³É¹¦");
+			System.out.println("æ•°æ®åº“è¿æ¥æˆåŠŸ");
 			return conn;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("Êı¾İ¿âÇı¶¯³ÌĞòÕÒ²»µ½");
+			System.out.println("æ•°æ®åº“é©±åŠ¨ç¨‹åºæ‰¾ä¸åˆ°");
 			return null;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Êı¾İ¿âÁ¬½ÓÊ§°Ü");
+			System.out.println("æ•°æ®åº“è¿æ¥å¤±è´¥");
 			return null;
 		}
 	}
 
-	// Êı¾İ¿âÔöÉ¾¸Ä²Ù×÷
+	// æ•°æ®åº“å¢åˆ æ”¹æ“ä½œ
 	public static int modifyBySql(String sql) {
 		int rs = 0;
 		try {
@@ -38,7 +38,7 @@ public class DBServices {
 		return rs;
 	}
 	
-	// Êı¾İ¿â²éÑ¯²Ù×÷
+	// æ•°æ®åº“æŸ¥è¯¢æ“ä½œ
 	public static ResultSet queryBySql(String sql) {
 		ResultSet rs = null;
 		try {

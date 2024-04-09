@@ -10,7 +10,7 @@ public class AdminDAO {
         Integer uid = user.getUid();
 
         //mysql修改语句,通过用户的uid,将数据库中的flag属性改为0
-        String sql = "update users set flag = 0 where uid = '"+ uid +"'";
+        String sql = "update user set flag = 0 where uid = '"+ uid +"'";
 
         //执行修改语句
         if(DBServices.modifyBySql(sql) == 1){

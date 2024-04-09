@@ -10,8 +10,8 @@ create table user
     uid      bigint auto_increment comment 'id' primary key,
     username varchar(256)  not null comment '账号',
     password varchar(512)  not null comment '密码',
-    email    varchar(256)  not null comment '邮箱',
-    age      int           not null comment '年龄',
+    email    varchar(256)  null comment '邮箱',
+    age      int           null comment '年龄',
     flag     int default 1 not null comment '用户角色：1-用户/0-管理员'
 ) comment '用户' collate = utf8mb4_unicode_ci;
 

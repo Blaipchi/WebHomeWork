@@ -10,12 +10,15 @@ public class UsersDAO {
     /*验证登录是成功，成功返回true，失败返回false
     传入一个User对象，该User对象保存这登录是的账号和密码，然后与数据库中的进行查询
      */
-    public boolean checkLogin(String loginName,String loginPassword){
+    public boolean checkLogin(String username,String password){
         //mysql查询语句,根据账号查询用户是否已经注册
-        String sql = "select * from users where loginName = '" + loginName + "'";
+        String sql = "select * from user where username = '" + username + "'";
 
         //数据库的查询
         ResultSet resultSet = DBServices.queryBySql(sql);
+
+        System.out.println(resultSet);
+
         //用user1存储从数据库中读取的该用户的账号和密码
         User user1 = new User();
         //判断数据库中查询到的结果是否为空
@@ -32,7 +35,7 @@ public class UsersDAO {
                     return false;
                 }
                 //判断从数据库中查询到的账号和密码是否与用户输入的账号和密码一致
-                if(user1.getUsername().equals(loginName) && user1.getPassword().equals(loginPassword)){
+                if(user1.getUsername().equals(username) && user1.getPassword().equals(password)){
                     //账号和密码一致，返回true
                     return true;
                 }else{
@@ -54,13 +57,11 @@ public class UsersDAO {
         //获取用户注册的信息
         String username = user.getUsername();
         String password = user.getPassword();
-        String email = user.getEmail();
-        Integer age = user.getAge();
         //注册用户全权限默认是：1
         Integer flag = 1;
 
         //mysql插入语句
-        String sql = "insert into users(username,password,email,age,flag) values('" + username + "','" + password + "','" + email + "'," + age + "," + flag + ")";
+        String sql = "insert into user(username,password) values('" + username + "','" + password + "')";
 
         //执行插入语句
         if(DBServices.modifyBySql(sql) == 1){
@@ -86,7 +87,7 @@ public class UsersDAO {
         if(password != null && email != null && age != 0){
             //用户输入了修改的信息
             //mysql更新uid为uid用户的password,email,age的语句
-            String sql = "update users set password = '" + password + "',email = '" + email + "',age = " + age + " where uid = '" + uid + "'";
+            String sql = "update user set password = '" + password + "',email = '" + email + "',age = " + age + " where uid = '" + uid + "'";
 
             //执行更新语句
             if(DBServices.modifyBySql(sql) == 1){
@@ -103,7 +104,7 @@ public class UsersDAO {
         }
     }
 
-    /*管理员删除用户后，数据库中的users表中该用户也要删除，删除成功返回true,返回失败返回false
+    /*管理员删除用户后，数据库中的user表中该用户也要删除，删除成功返回true,返回失败返回false
         根据用户名，根据用户名删除数据库中的该用户
      */
 
@@ -112,7 +113,7 @@ public class UsersDAO {
         Integer uid = user.getUid();
 
         //mysql删除语句
-        String sql = "delete from users where uid = '" + uid + "'";
+        String sql = "delete from user where uid = '" + uid + "'";
 
         //执行删除语句
         if(DBServices.modifyBySql(sql) == 1){
@@ -124,23 +125,32 @@ public class UsersDAO {
             return false;
         }
     }
-    /**
-     * 检查给定的用户名是否已存在于数据库中。
-     *
-     * @param username 待检查的用户名
-     * @return 如果用户名存在，返回true；否则返回false
-     */
-    public boolean checkIfUsernameExists(String username) {
-        // SQL查询语句，检查用户名是否存在
-        String sql = "SELECT * FROM users WHERE username = ?";
 
-        try (ResultSet resultSet = DBServices.queryBySql(sql)) {
-            // 执行查询，如果结果集中有记录，则说明用户名存在
-            return resultSet.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // 查询过程中发生异常，返回false表示未找到该用户名
-            return false;
-        }
+
+    public static User checkFlag(String username,String password){
+
+        User user0 = new User();
+
+        String sql = "select * from user where username = '" + username + "'";
+
+        //数据库的连接
+        ResultSet resultSet = DBServices.queryBySql(sql);
+
+            //将获取的信息保存在user0中
+            try{
+                //判断数据库中查询到的结果是否为空
+                if(resultSet.next()) {
+                    //查询到后将从数据库中查询的账号密码存储在user0中
+                    user0.setUid(resultSet.getInt("uid"));
+                    user0.setUsername(resultSet.getString("username"));
+                    user0.setPassword(resultSet.getString("password"));
+                    user0.setEmail(resultSet.getString("email"));
+                    user0.setAge(resultSet.getInt("age"));
+                    user0.setFlag(resultSet.getInt("flag"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return user0;
     }
 }

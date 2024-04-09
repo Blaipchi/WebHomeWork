@@ -28,16 +28,18 @@
 </head>
 <body>
 <div style="text-align: center">
-    <form action="register" method="post" id="registerForm">
-        用户名:<input type="text" name="username" id="username" value="${messageModel.object.username}"><br>
-        密码:<input type="password" name="password" id="password" value="${messageModel.object.password}"><br>
-        确认密码:<input type="password" name="confirmPassword" id="confirmPassword"><br>
-        <span id="regMsg" style="font-size:12px; color: red">${messageModel.msg}</span><br>
-        <button type="button" id="registerBtn">注册</button>
+    <form action="../RegisterServlet" method="post" id="registerForm">
+        用户名:<input type="text" name="username" id="username"><br>
+        密码:<input type="password" name="password" id="password" ><br>
+        <button type="submit" id="registerBtn">注册</button>
         <a href="login.jsp" class="register-button">返回登录页面</a>
     </form>
 </div>
 </body>
+
+
+
+
 <%-- 引入Jquery的js文件 --%>
 <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
 <script type="text/javascript">
@@ -68,6 +70,6 @@
             return true;
         }
         return false;
-    };
+    }
 </script>
 </html>

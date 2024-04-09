@@ -3,6 +3,7 @@
 <%@ page import="dao.DBServices" %>
 <%@ page import="java.util.*" %>
 <%@ page import="pojo.*" %>
+<%@ page import="Servlet.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -28,38 +29,14 @@
 </head>
 <body>
 <div style="text-align: center">
-    <form action="/login" method="post" id="loginForm">
-        姓名:<input type="text"name="uname" id="uname" value="${messageModel.object.userName}"><br>
-        密码:<input type="password" name="upwd" id="upwd" value="${messageModel.object.userPwd}"> <br>
-        <span id="msg" style="font-size:12px;color: red">${messageModel.msg}</span> <br>
-        <button type="button" id="loginBtn">登录</button>
+    <form action="../LoginServlet" method="post" id="loginForm">
+        姓名:<input type="text" name="username" id="uname"><br>
+        密码:<input type="password" name="password" id="upwd"> <br>
+        <button type="submit" id="loginBtn">登录</button>
         <a href="Register.jsp" class="register-button">前往注册页面</a>
     </form>
 </div>
 </body>
-<%--引入Jquery的js文件 --%>
-<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
-<script type="text/javascript">
-    $("#loginBtn").click(function () {
-        var uname = $("#uname").val();
-        var upwd = $("#upwd").val();
-        if(!isEmpty(uname)){
-            $("#msg").html("用户名不能为空!");
-            return;
-        }
-        if(!isEmpty(upwd)){
-            $("#msg").html("密码不能为空!");
-            return;
-        }
-        //如果都不为空，则手动提交表单
-        $("#loginForm").submit();
-    });
-    function isEmpty(str) {
-        if (str == null || str == "") {
-            return true;
-        }
-        return false;
-    };
-</script>
+
 </html>
 
