@@ -72,7 +72,7 @@
         }
 
         input{
-            text-shadow: 1px 1px gray;
+            text-shadow: 1px 1px rgb(128, 128, 128);
             background-color:white;
             color:black;
             width:80px;
