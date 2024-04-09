@@ -1,7 +1,8 @@
 package Servlet;
-import pojo.User;
-import dao.UsersDAO;
+
 import jakarta.servlet.annotation.WebServlet;
+import pojo.valueobject.MessageModel;
+import service.RegisterService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,24 +13,26 @@ import java.io.IOException;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
-    private final UsersDAO usersDAO = new UsersDAO();
+    // 实例化RegisterService对象
+    private RegisterService registerService = new RegisterService();
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1. 接收客户端的请求（接收参数：用户名、密码）
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String email = request.getParameter("email");
 
-        User newUser = new User(); // 默认为普通用户
-        newUser.setUsername(username);
-        newUser.setPassword(password);
-        newUser.setEmail(email);
+        // 2. 调用service层的方法，返回消息模型对象
+        MessageModel messageModel = registerService.registerUser(username, password);
 
-
-        if (usersDAO.addUser(newUser)) {
-            // 注册成功，可以在此处添加额外处理（如发送验证邮件、跳转到欢迎页面等）
-            response.getWriter().println("Registration successful!");
-        } else {
-            response.getWriter().println("Failed to register. Please try again.");
+        // 3. 判断消息模型的状态码
+        if (messageModel.getCode() == 1) { // 注册成功
+            // 重定向跳转到注册成功提示页面或直接返回首页
+            response.sendRedirect("register_success.jsp");
+        } else { // 注册失败
+            // 将消息模型对象设置到request作用域中，请求转发跳转到register.jsp
+            request.setAttribute("messageModel", messageModel);
+            request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
 }

@@ -1,7 +1,8 @@
 package Servlet;
-import pojo.User;
-import dao.UsersDAO;
+
 import jakarta.servlet.annotation.WebServlet;
+import pojo.valueobject.MessageModel;
+import service.LoginService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,22 +13,27 @@ import java.io.IOException;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private final UsersDAO usersDAO = new UsersDAO();
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        User loginUser = new User();
-        loginUser.setUsername(username);
-        loginUser.setPassword(password);
-
-
-        if (usersDAO.checkLogin(loginUser.getUsername(), loginUser.getPassword())) {
-            // 登录成功，可以在此处设置 session、跳转到主页面等
-            response.getWriter().println("Login successful!");
-        } else {
-            response.getWriter().println("Invalid username or password. Please try again.");
+    //实例化LoginService对象
+    private LoginService loginService = new LoginService();
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1.接收客户端的请求(接收参数:姓名、密码)
+        String uname = request.getParameter("username");
+        String upwd = request.getParameter("password");
+        //2.调用service层的方法，返回消息模型对象
+        MessageModel messageModel = new MessageModel();
+        //3.判断消息模型的状态码
+        if (messageModel.getCode() == 1)//登录成功
+        {
+            //将消息模型中的用户信息设置到session作用域中，重定向跳转到user.jsp
+            request.getSession().setAttribute("user",messageModel.getObject());
+            response.sendRedirect("user.jsp");
+        }
+        else//登录失败
+        {
+            // 将消息模型对象设置到request作用域中，请求转发跳转到login.jsp
+            request.setAttribute("messageModel",messageModel);
+            request.getRequestDispatcher("login.jsp").forward(request,response);
         }
     }
 }

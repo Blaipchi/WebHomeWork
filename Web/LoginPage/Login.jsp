@@ -1,35 +1,65 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Zlay
-  Date: 2024/4/6
-  Time: 3:59
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="dao.DBServices" %>
+<%@ page import="java.util.*" %>
+<%@ page import="pojo.*" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <meta charset="ISO-8859-1">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>登录页面</title>
+    <style>        .register-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .register-button:hover {
+        background-color: #45a049;
+    }
+    </style>
 </head>
 <body>
-
-<div class="container mt-5">
-    <h2>Login</h2>
-
-    <form action="${pageContext.request.contextPath}/login" method="post">
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+<div style="text-align: center">
+    <form action="login" method="post" id="loginForm">
+        姓名:<input type="text"name="uname" id="uname" value="${messageModel.object.userName}"><br>
+        密码:<input type="password" name="upwd" id="upwd" value="${messageModel.object.userPwd}"> <br>
+        <span id="msg" style="font-size:12px;color: red">${messageModel.msg}</span> <br>
+        <button type="button" id="loginBtn">登录</button>
+        <a href="Register.jsp" class="register-button">前往注册页面</a>
     </form>
 </div>
-
 </body>
+<%--引入Jquery的js文件 --%>
+<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    $("#loginBtn").click(function () {
+        var uname = $("#uname").val();
+        var upwd = $("#upwd").val();
+        if(!isEmpty(uname)){
+            $("#msg").html("用户名不能为空!");
+            return;
+        }
+        if(!isEmpty(upwd)){
+            $("#msg").html("密码不能为空!");
+            return;
+        }
+        //如果都不为空，则手动提交表单
+        $("#loginForm").submit();
+    });
+    function isEmpty(str) {
+        if (str == null || str == "") {
+            return true;
+        }
+        return false;
+    };
+</script>
 </html>
+
