@@ -34,7 +34,7 @@
         确认密码:<input type="password" name="confirmPassword" id="confirmPassword"><br>
         <span id="regMsg" style="font-size:12px; color: red">${messageModel.msg}</span><br>
         <button type="button" id="registerBtn">注册</button>
-        <a href="Login.jsp" class="register-button">返回登录页面</a>
+        <a href="login.jsp" class="register-button">返回登录页面</a>
     </form>
 </div>
 </body>

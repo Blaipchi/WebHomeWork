@@ -124,4 +124,23 @@ public class UsersDAO {
             return false;
         }
     }
+    /**
+     * 检查给定的用户名是否已存在于数据库中。
+     *
+     * @param username 待检查的用户名
+     * @return 如果用户名存在，返回true；否则返回false
+     */
+    public boolean checkIfUsernameExists(String username) {
+        // SQL查询语句，检查用户名是否存在
+        String sql = "SELECT * FROM users WHERE username = ?";
+
+        try (ResultSet resultSet = DBServices.queryBySql(sql)) {
+            // 执行查询，如果结果集中有记录，则说明用户名存在
+            return resultSet.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // 查询过程中发生异常，返回false表示未找到该用户名
+            return false;
+        }
+    }
 }

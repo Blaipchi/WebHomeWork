@@ -28,7 +28,7 @@
 </head>
 <body>
 <div style="text-align: center">
-    <form action="login" method="post" id="loginForm">
+    <form action="/login" method="post" id="loginForm">
         姓名:<input type="text"name="uname" id="uname" value="${messageModel.object.userName}"><br>
         密码:<input type="password" name="upwd" id="upwd" value="${messageModel.object.userPwd}"> <br>
         <span id="msg" style="font-size:12px;color: red">${messageModel.msg}</span> <br>
