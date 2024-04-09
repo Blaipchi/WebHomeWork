@@ -1,3 +1,4 @@
+<%@ page import="pojo.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -67,9 +68,9 @@
 
     <div class="adminInfo">
         <h4 style="margin-top: -10px;">
-            uid:<%=session.getAttribute("uid")%>
+            uid:<%=((User) session.getAttribute("user")).getUid()%>
             <br>
-            username:<%=session.getAttribute("username")%>
+            username:<%=((User) session.getAttribute("user")).getUsername()%>
         </h4>
         <hr color="skyblue">
     </div>

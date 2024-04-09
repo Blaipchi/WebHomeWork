@@ -14,22 +14,20 @@
     <script>
         function showUserInfo(){
             <%
+            User ul = (User) session.getAttribute("user");
+
             try {
                 String sql = "select uid,username,flag from users";
-                    //Connection con = DBServices.getConnection();
                 DBServices.getConnection();
                 ResultSet res = DBServices.queryBySql(sql);
                 List<User> lu = new ArrayList<User>();
-                    //Map<String,Integer> userMap = new HashMap<>();
                 while(res.next()){
                 	User user = new User();
                 	user.setUid(res.getInt("uid"));
                     user.setUsername(res.getString("username"));
                 	user.setFlag(res.getInt("flag"));
                 	lu.add(user);
-                        //userMap.put(res.getString("uid"),res.getInt("flag"));
                 }
-                    //session.setAttribute("userMap",userMap);
                 session.setAttribute("userMap",lu);
             }
             catch (SQLException e) {
@@ -99,7 +97,7 @@
     </div>
 
     <div class="adminInfo">
-        <h4 style="margin-top: -10px;">adminName:<%=session.getAttribute("adminName") %></h4>
+        <h4 style="margin-top: -10px;">adminName:<%=ul.getUsername() %></h4>
         <input type="button" value="退出登录" onclick="window.location.href='../LoginPage/Login.jsp';">
         <hr color="skyblue">
     </div>
@@ -119,12 +117,8 @@ uid      usernamme      flag      操作
 
                 <tbody>
                 <%
-                        //Map<String,Integer> users = (Map<String,Integer>)session.getAttribute("userMap");
                     List<User> lu = (ArrayList<User>)session.getAttribute("userMap");
-                        //for(Map.Entry<String, Integer> entry : users.entrySet()) {
                     for(int i=0;i<lu.size();++i) {
-                            //String key = entry.getKey();
-                            //int value = entry.getValue();
                         User j = lu.get(i);
                         int uid = j.getUid();
                         String username = j.getUsername();

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="dao.DBServices" %>
+<%@ page import="pojo.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,10 @@
     <script>
         function showUserInfo(){
             <%
-                String ud = (String)session.getAttribute("uid");
+                User ul = (User) session.getAttribute("user");
+
+                String ud = Integer.toString(ul.getUid());
+
                 String sql = "select uid,username,password,email,age,flag from users where uid = ";
                 sql += ud;
 
