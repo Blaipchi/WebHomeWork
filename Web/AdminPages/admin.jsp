@@ -3,6 +3,7 @@
 <%@ page import="dao.DBServices" %>
 <%@ page import="java.util.*" %>
 <%@ page import="pojo.*" %>
+<%@ page import="dao.UsersDAO" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,23 +17,10 @@
             <%
             User ul = (User) session.getAttribute("user");
 
-            try {
-                String sql = "select uid,username,flag from users";
-                DBServices.getConnection();
-                ResultSet res = DBServices.queryBySql(sql);
-                List<User> lu = new ArrayList<User>();
-                while(res.next()){
-                	User user = new User();
-                	user.setUid(res.getInt("uid"));
-                    user.setUsername(res.getString("username"));
-                	user.setFlag(res.getInt("flag"));
-                	lu.add(user);
-                }
-                session.setAttribute("userMap",lu);
-            }
-            catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            UsersDAO usersDAO = new UsersDAO();
+            List<User> lut = usersDAO.selectAllUsers();
+            session.setAttribute("userMap",lut);
+
             %>
         }
 

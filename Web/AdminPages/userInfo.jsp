@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="dao.DBServices" %>
 <%@ page import="pojo.User" %>
+<%@ page import="dao.UsersDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,44 +14,15 @@
         function showUserInfo(){
             <%
                 User ul = (User) session.getAttribute("user");
+                UsersDAO usersDAO = new UsersDAO();
+                User user = usersDAO.selectUserByUid(ul.getUid());
 
-                String ud = Integer.toString(ul.getUid());
-
-                String sql = "select uid,username,password,email,age,flag from users where uid = ";
-                sql += ud;
-
-                try {
-                    DBServices.getConnection();
-                    ResultSet res = null;
-                    res = DBServices.queryBySql(sql);
-
-                    int uid = 0;
-                    String username = "";
-                    String password = "";
-                    String email = "";
-                    int age = 0;
-                    int flag = 0;
-
-                    while(res.next()){
-                        uid = res.getInt("uid");
-                        username = res.getString("username");
-                        password = res.getString("password");
-                        email = res.getString("email");
-                        age = res.getInt("age");
-                        flag = res.getInt("flag");
-                    }
-                    session.setAttribute("userInfo_uid",uid);
-                    session.setAttribute("userInfo_username",username);
-                    session.setAttribute("userInfo_password",password);
-                    session.setAttribute("userInfo_email",email);
-                    session.setAttribute("userInfo_age",age);
-                    session.setAttribute("userInfo_flag",flag);
-
-                }
-                catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
+                session.setAttribute("userInfo_uid",user.getUid());
+                session.setAttribute("userInfo_username",user.getUsername());
+                session.setAttribute("userInfo_password",user.getPassword());
+                session.setAttribute("userInfo_email",user.getEmail());
+                session.setAttribute("userInfo_age",user.getAge());
+                session.setAttribute("userInfo_flag",user.getFlag());
             %>
         }
     </script>
@@ -63,10 +35,9 @@
             margin-top: 5%;
             margin-left: 35%;
             text-align: center;
-            border: 5px solid aqua;
-            border-style: outset;
+            border: 5px outset aqua;
             border-radius: 50px 50px 50px 50px;
-            box-shadow:0px 0px 10px 5px #aaa inset;
+            box-shadow:0 0 10px 5px #aaa inset;
         }
 
         .sty2{
@@ -76,7 +47,7 @@
         }
 
         input{
-            text-shadow: 1px 1px gray;
+            text-shadow: 1px 1px rgb(128, 128, 128);
             background-color:white;
             color:black;
 

@@ -4,6 +4,8 @@ import pojo.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsersDAO {
 
@@ -152,5 +154,59 @@ public class UsersDAO {
                 e.printStackTrace();
             }
             return user0;
+    }
+
+    public List<User> selectAllUsers() {
+        String sql = "select uid,username,flag from user";
+        List<User> lu;
+        try {
+
+            ResultSet res = null;
+            res = DBServices.queryBySql(sql);
+            lu = new ArrayList<>();
+            while (res.next()) {
+                User user = new User();
+                user.setUid(res.getInt("uid"));
+                user.setUsername(res.getString("username"));
+                user.setFlag(res.getInt("flag"));
+                lu.add(user);
+            }
+            res.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lu;
+    }
+
+    public User selectUserByUid(int uid) {
+        String ud = Integer.toString(uid);
+        String sql = "select uid,username,password,email,age,flag from user where uid = ";
+        sql += ud;
+        User user = new User();
+        try {
+
+            ResultSet res = null;
+            res = DBServices.queryBySql(sql);
+
+            int ui = 0;
+            String username = "";
+            String password = "";
+            String email = "";
+            int age = 0;
+            int flag = 0;
+
+            while(res.next()){
+                user.setUid(res.getInt("uid"));
+                user.setUsername(res.getString("username"));
+                user.setPassword(res.getString("password"));
+                user.setEmail(res.getString("email"));
+                user.setAge(res.getInt("age"));
+                user.setFlag(res.getInt("flag"));
+            }
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user;
     }
 }
