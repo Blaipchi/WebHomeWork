@@ -1,5 +1,7 @@
 <%@ page import="dao.ArticleDAO" %>
 <%@ page import="pojo.Article" %>
+<%@ page import="pojo.User" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,25 +49,27 @@
 <body>
     <%
         // 查找用户所有文章信息
-        // Integer uid = session.getAttribute(????);
-        // List<Article> articles = new ArticleDAO().findArticleByUid();
+            User user0 = (User) session.getAttribute("user");
+            int uid = user0.getUid();
+
+            List<Article> articles = new ArticleDAO().findArticleByUid(uid);
     %>
     <div class="container">
         <%
-            // 循环输出文章信息
-            // for(Article article: aritcles) {
-            // String title = article.getTitle();
-            // String content = article.getContent();
+             //循环输出文章信息
+             for(Article article: articles) {
+             String title = article.getTitle();
+             String content = article.getContent();
         %>
         <div class="article">
-            <h3><% %></h3>
-            <p><% %></p>
+            <h3><%=title%></h3>
+            <p><%=content%></p>
         </div>
         <%
-            // }
+             }
         %>
 
-        <a href="">返回用户界面</a>
+        <a href="../AdminPages/user.jsp">返回用户界面</a>
     </div>
 </body>
 </html>

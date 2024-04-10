@@ -12,7 +12,16 @@ import pojo.User;
 
 public class UpdateUserInfoServlet extends HttpServlet{
 	public void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
-		int uid = Integer.parseInt(request.getParameter("uid"));
+		System.out.println(request.getParameter("username"));
+		System.out.println(request.getParameter("password"));
+		System.out.println(request.getParameter("email"));
+		System.out.println(request.getParameter("age"));
+
+
+		Integer uid = (Integer) request.getSession().getAttribute("uid");
+
+		System.out.println(uid);
+
 			//String uid = "1";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -36,6 +45,6 @@ public class UpdateUserInfoServlet extends HttpServlet{
 		else {
 			System.out.println("修改失败！");
 		}
-		response.sendRedirect("/WT/AdminPages/userInfo.jsp");
+		response.sendRedirect(request.getContextPath() + "/AdminPages/user.jsp");
 	}
 }

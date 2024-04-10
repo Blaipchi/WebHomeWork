@@ -81,6 +81,7 @@ public class UsersDAO {
     public boolean updateUserInfo(User user){
         //获取用户修改的信息
         Integer uid = user.getUid();
+        String username = user.getUsername();
         String password = user.getPassword();
         String email = user.getEmail();
         Integer age = user.getAge();
@@ -89,7 +90,7 @@ public class UsersDAO {
         if(password != null && email != null && age != 0){
             //用户输入了修改的信息
             //mysql更新uid为uid用户的password,email,age的语句
-            String sql = "update user set password = '" + password + "',email = '" + email + "',age = " + age + " where uid = '" + uid + "'";
+            String sql = "update user set username = '" + username + "',password = '" + password + "',email = '" + email + "',age = " + age + " where uid = '" + uid + "'";
 
             //执行更新语句
             if(DBServices.modifyBySql(sql) == 1){

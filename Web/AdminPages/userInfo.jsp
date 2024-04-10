@@ -77,11 +77,9 @@
 
     <div class="users">
         <h5>用户具体信息</h5>
+        <p>uid:<%=session.getAttribute("userInfo_uid") %></p>
         <form action="../UpdateUserInfoServlet" method="post">
             <table style="overflow-y: scroll;">
-                <tr>
-                    <th>uid:<input type="text" value="<%=session.getAttribute("userInfo_uid")%>" disabled></th>
-                </tr>
                 <tr>
                     <th>username:<input name="username" type="text" value="<%=session.getAttribute("userInfo_username")%>"></th>
                 </tr>
@@ -95,7 +93,14 @@
                     <th>age:<input name="age" type="text" value="<%=session.getAttribute("userInfo_age")%>"></th>
                 </tr>
                 <tr>
-                    <th>flag:<input type="text" value="<%=session.getAttribute("userInfo_flag")%>" disabled></th>
+                    <th>用户类别:<input name="flag" type="text" value="<%
+                    if(session.getAttribute("userInfo_flag").equals("1")){
+                        out.print("管理员");
+                    }
+                    else{
+                        out.print("普通用户");
+                    }
+                    %>" disabled></th>
                 </tr>
                 <tr>
                     <td colspan="3" style="text-align: center;">

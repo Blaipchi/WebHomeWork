@@ -48,7 +48,7 @@
 <div class="container">
     <h1>文章修改页面</h1>
     <!-- 表单提交到添加文章的servlet -->
-    <form action="AddArticleServlet" method="post">
+    <form action="../AddArticleServlet" method="post">
         <div class="title">
             <label for="title">标题：</label>
             <input type="text" id="title" name="title">
