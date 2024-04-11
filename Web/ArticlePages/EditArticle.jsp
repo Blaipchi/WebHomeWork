@@ -51,12 +51,12 @@
     <form action="../AddArticleServlet" method="post">
         <div class="title">
             <label for="title">标题：</label>
-            <input type="text" id="title" name="title">
+            <input type="text" id="title" name="title" required>
         </div>
 
         <div class="content">
             <label for="content">内容：</label>
-            <textarea name="content" id="content" rows="30" style="resize: vertical;"></textarea>
+            <textarea name="content" id="content" rows="30" style="resize: vertical;" required></textarea>
         </div>
 
         <div class="btn">

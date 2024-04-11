@@ -34,6 +34,7 @@
         .article {
             border: 1px solid black;
             padding: 1rem;
+            width: 100%;
         }
 
         .article h3 {
