@@ -22,7 +22,7 @@ public class UpdateUserInfoServlet extends HttpServlet{
 
 		System.out.println(uid);
 
-			//String uid = "1";
+		//String uid = "1";
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");

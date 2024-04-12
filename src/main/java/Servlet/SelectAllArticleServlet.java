@@ -20,7 +20,7 @@ public class SelectAllArticleServlet extends HttpServlet {
         User user0 = (User) req.getSession().getAttribute("user");
         int uid = user0.getUid();
         // 通过dao查询数据
-        List<Article> articles = new ArticleDAO().findArticleByUid(uid);
+        List<Article> articles = new ArticleDAO().findArticle();
         // 将数据保存在session中
         req.getSession().setAttribute("userArticles", articles);
         // 重定向至显示文章信息jsp

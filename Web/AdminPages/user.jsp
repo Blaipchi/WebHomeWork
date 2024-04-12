@@ -1,83 +1,58 @@
 <%@ page import="pojo.User" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<html lang="en">
 <head>
-    <meta charset="ISO-8859-1">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>user</title>
-
+    <title>User</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .sty1{
-            width: 400px;
-            height: 600px;
-            position: absolute;
+        .container {
             margin-top: 5%;
-            margin-left: 35%;
-            text-align: center;
-            border: 5px solid aqua;
-            border-style: outset;
-            border-radius: 50px 50px 50px 50px;
-            box-shadow:0px 0px 10px 5px #aaa inset;
+            width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 rgba(33,37,41,.1) !important;
+            background-color: #ffffff;
         }
-
-        .sty2{
-            width: auto;
-            height: 70px;
-            position: relative;
+        .title {
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border-radius: 10px 10px 0 0;
         }
-
-        .adminInfo{
-            width: auto;
-            height: 70px;
+        .content {
+            padding: 20px;
         }
-
-        input{
-            text-shadow: 1px 1px gray;
-            background-color:white;
-            color:black;
-            margin-top: 20px;
-        }
-
-        .users{
-            width: 380px;
-            height: 430px;
+        .button {
             margin-top: 10px;
-            margin-left: 10px;
-            border: 1px solid aqua;
-            border-radius: 10px 10px 10px 10px;
-            box-shadow:0px 0px 1px 1px #aaa inset;
+            width: 100%;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
         }
-
-        th{
-            text-align: right;
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-<div class="sty1">
-    <div class="sty2">
-        <h3>计算机知识交流平台分享-个人空间</h3>
-        <hr color="skyblue">
+<div class="container">
+    <div class="title">
+        <h2>个人空间</h2>
     </div>
-
-    <div class="adminInfo">
-        <h4 style="margin-top: -10px;">
-            uid:<%=((User) session.getAttribute("user")).getUid()%>
-            <br>
-            username:<%=((User) session.getAttribute("user")).getUsername()%>
-        </h4>
-        <hr color="skyblue">
-    </div>
-
-    <div class="users">
-        <input type="button"value="发布的文章" onclick="window.location.href='../SelectAllArticleServlet';"><br>
-        <input type="button"value="发布文章" onclick="window.location.href='../ArticlePages/EditArticle.jsp';"><br>
-        <input type="button" value="编辑个人信息" onclick="window.location.href='userInfo.jsp';"><br>
-        <input type="button" value="退出登录" onclick="window.location.href='../LoginPage/login.jsp';">
+    <div class="content">
+        <hr>
+        <h4>uid: <%=((User) session.getAttribute("user")).getUid()%></h4>
+        <h4>username: <%=((User) session.getAttribute("user")).getUsername()%></h4>
+        <hr>
+        <button class="button" onclick="window.location.href='../SelectAllArticleServlet';">全部文章</button>
+        <button class="button" onclick="window.location.href='../ArticlePages/EditArticle.jsp';">发布文章</button>
+        <button class="button" onclick="window.location.href='userInfo.jsp';">编辑个人信息</button>
+        <button class="button" onclick="window.location.href='../LoginPage/login.jsp';">退出登录</button>
     </div>
 </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -84,20 +84,21 @@ public class ArticleDAO {
     /*查询数据库中article表中的所有文章信息,查询成功返回一个List装有所有文章的articleList
      */
     public List<Article> findArticle(){
+        //初始化需要返回的article0
         //初始化，用于存储查询结果
         List<Article> articleList = new ArrayList<>();
-        articleList = null;
+        Article article0 = null;
 
-        //mysql查询语句
+        //mysql的数据库查询根据uid查询语句
         String sql = "select * from article";
 
         ResultSet resultSet = DBServices.queryBySql(sql);
 
         //执行sql语句,并且将查询结果存储在存放在articleList中
-        if(resultSet!=null){
+        if (resultSet != null) {
             //查询成功
             //将查询结果存储在articleList中
-            while (true){
+            while (true) {
                 try {
 
                     if (!resultSet.next()) break;
@@ -115,13 +116,48 @@ public class ArticleDAO {
             }
             //返回查询成功的articleList
             return articleList;
-
-        }else {
-            //查询失败
+        }else{
             System.out.println("查询失败");
-            //返回查询失败的articleList，即返回一个空列表
             return articleList;
         }
+//        //初始化，用于存储查询结果
+//        List<Article> articleList = new ArrayList<>();
+//        articleList = null;
+//
+//        //mysql查询语句
+//        String sql = "select * from article";
+//
+//        ResultSet resultSet = DBServices.queryBySql(sql);
+//
+//        //执行sql语句,并且将查询结果存储在存放在articleList中
+//        if(resultSet!=null){
+//            //查询成功
+//            //将查询结果存储在articleList中
+//            while (true){ r
+//                try {
+//
+//                    if (!resultSet.next()) break;
+//                    Article article = new Article();
+//                    article.setUid(resultSet.getInt("uid"));
+//                    article.setArtid(resultSet.getInt("artid"));
+//                    article.setTitle(resultSet.getString("title"));
+//                    article.setContent(resultSet.getString("content"));
+//                    article.setPublicTime(resultSet.getDate("publicTime"));
+//                    articleList.add(article);
+//
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//            //返回查询成功的articleList
+//            return articleList;
+//
+//        }else {
+//            //查询失败
+//            System.out.println("查询失败");
+//            //返回查询失败的articleList，即返回一个空列表
+//            return articleList;
+//        }
     }
 
     //根据uid查询数据库中article表中的文章信息,查询成功返回一个article类
@@ -163,4 +199,6 @@ public class ArticleDAO {
             return articleList;
         }
     }
+
+
 }
