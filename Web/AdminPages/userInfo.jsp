@@ -125,7 +125,7 @@
                 </tr>
                 <tr>
                     <th>用户名:</th>
-                    <td><input name="username" type="text" value="<%= session.getAttribute("userInfo_username") %>"></td>
+                    <td><input name="username" type="text" value="<%= session.getAttribute("userInfo_username") %>" disabled></td>
                 </tr>
                 <tr>
                     <th>密码:</th>

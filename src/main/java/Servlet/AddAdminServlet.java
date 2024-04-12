@@ -30,6 +30,6 @@ public class AddAdminServlet extends HttpServlet {
         else {
             System.out.println("修改权限失败！");
         }
-        response.sendRedirect("/WebHomeWork/AdminPages/admin.jsp");
+        response.sendRedirect(request.getContextPath() + "/AdminPages/admin.jsp");
     }
 }

@@ -44,8 +44,8 @@
     </div>
     <div class="content">
         <hr>
-        <h4>uid: <%=((User) session.getAttribute("user")).getUid()%></h4>
-        <h4>username: <%=((User) session.getAttribute("user")).getUsername()%></h4>
+        <h4>用户 ID: <%=((User) session.getAttribute("user")).getUid()%></h4>
+        <h4>用户名: <%=((User) session.getAttribute("user")).getUsername()%></h4>
         <hr>
         <button class="button" onclick="window.location.href='../SelectAllArticleServlet';">全部文章</button>
         <button class="button" onclick="window.location.href='../ArticlePages/EditArticle.jsp';">发布文章</button>

@@ -27,6 +27,6 @@ public class DeleteUserServlet extends HttpServlet  {
 		else {
 			System.out.println("删除失败！");
 		}
-		response.sendRedirect("/WebHomeWork/AdminPages/admin.jsp");
+		response.sendRedirect(request.getContextPath() + "/AdminPages/admin.jsp");
 	}
 }

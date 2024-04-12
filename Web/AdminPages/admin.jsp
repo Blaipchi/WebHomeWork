@@ -75,8 +75,8 @@
                         <td><input name="username" value="<%=username%>" disabled></td>
                         <td>
                             <select name="flag">
-                                <option value="0" <%=flag == 0 ? "selected" : ""%>>管理员</option>
-                                <option value="1" <%=flag == 1 ? "selected" : ""%>>普通用户</option>
+                                <option value="0" <%= flag == 0 ? "selected" : "" %>>管理员</option>
+                                <option value="1" <%= flag == 1 ? "selected" : "" %>>普通用户</option>
                             </select>
                         </td>
                         <td>

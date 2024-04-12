@@ -63,10 +63,14 @@
         .login-link:hover {
             text-decoration: underline;
         }
+        h1{
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
 <div class="container">
+    <h1>注册页面</h1>
     <form action="../RegisterServlet" method="post" id="registerForm">
         <div class="form-group">
             <label for="username">用户名:</label><br>
