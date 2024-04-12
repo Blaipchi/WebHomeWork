@@ -49,11 +49,8 @@
 </head>
 <body>
     <%
-        // 查找用户所有文章信息
-            User user0 = (User) session.getAttribute("user");
-            int uid = user0.getUid();
-
-            List<Article> articles = new ArticleDAO().findArticleByUid(uid);
+        // 通过session获取文章数据
+        List<Article> articles = (List<Article>) session.getAttribute("userArticles");
     %>
     <div class="container">
         <%
