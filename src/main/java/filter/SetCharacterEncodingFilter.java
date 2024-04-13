@@ -6,8 +6,8 @@ import jakarta.servlet.annotation.WebFilter;
 import javax.servlet.*;
 import java.io.IOException;
 
-// ÉèÖÃjsp¶ÁÈ¡Êı¾İµÄ±àÂë¸ñÊ½£¬½â¾öpostÇëÇóÖĞÎÄÂÒÂëµÄ¹ıÂËÆ÷
-// ¶ÔËùÓĞjspÊ¹ÓÃ
+// ï¿½ï¿½ï¿½ï¿½jspï¿½ï¿½È¡ï¿½ï¿½ï¿½İµÄ±ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½postï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jspÊ¹ï¿½ï¿½
 @WebFilter("/*")
 public class SetCharacterEncodingFilter implements Filter {
 
@@ -27,9 +27,10 @@ public class SetCharacterEncodingFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
 
     {
-
+        // è®¾ç½®httpè¯·æ±‚å­—ç¬¦ç¼–ç 
         request.setCharacterEncoding(encoding);
 
+        // è®¾ç½®httpå“åº”å­—ç¬¦ç¼–ç 
         response.setContentType("text/html;charset="+encoding);
 
         chain.doFilter(request, response);

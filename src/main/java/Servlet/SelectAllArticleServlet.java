@@ -16,9 +16,6 @@ import java.util.List;
 public class SelectAllArticleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 查找用户所有文章信息
-        User user0 = (User) req.getSession().getAttribute("user");
-        int uid = user0.getUid();
         // 通过dao查询数据
         List<Article> articles = new ArticleDAO().findArticle();
         // 将数据保存在session中
